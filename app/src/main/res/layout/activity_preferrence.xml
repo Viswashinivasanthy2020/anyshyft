@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Preferrence">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="Preference"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        tools:ignore="MissingConstraints">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/llayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                tools:ignore="MissingConstraints">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Hourly rate(USD)"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible" >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/universitylocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/poppins"
+                        android:text=" "
+                        android:textSize="14sp"
+                        android:inputType="number"  />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Set My Availability"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible" >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="5dp"
+                        android:layout_weight="1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        >
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal"
+
+                           >
+
+                           <TextView
+                               android:id="@+id/txt_m"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:layout_weight="1"
+                               android:fontFamily="@font/poppins"
+                               android:text="M"
+                               android:onClick="select_date"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_tu"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="T"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_w"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="W"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_th"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="T"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_f"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="F"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_sa"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="S"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+                           <TextView
+                               android:id="@+id/txt_su"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="10dp"
+                               android:text="S"
+                               android:onClick="select_date"
+                               android:fontFamily="@font/poppins"
+                               android:textAlignment="center"
+                               android:textSize="16sp"
+                               android:textStyle="bold" />
+
+                       </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Preferred Shift"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible" >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="5dp"
+                        android:layout_weight="1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@color/light_snow">
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/hsd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/shift_list"
+                            android:padding="20dp"/>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Add Start Date"
+                    android:fontFamily="@font/poppins"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible" >
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="4dp"
+                        app:strokeWidth="1dp">
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/poppins"
+                        android:drawableRight="@drawable/ic_outline_calendar_month_24"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:drawablePadding="10dp"
+                        android:onClick="open_calender"
+                        android:inputType="text"  />
+                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="@font/poppins"
+                    android:padding="12dp"
+                    android:onClick="onClick_perference"
+                    android:text="Submit"
+                    app:cornerRadius="10dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

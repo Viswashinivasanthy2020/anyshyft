@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.Account_fragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f9f9f9"
+        >
+    <LinearLayout
+        android:id="@+id/llayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+      >
+            <androidx.cardview.widget.CardView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:cardCornerRadius="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/profileimage"
+                    android:scaleType="centerCrop"/>
+            </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
+            android:text="Ben Stone" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:text="Cardiologist" />
+
+
+    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_baseline_settings_24"
+            android:scaleType="centerCrop"/>
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llayout2"
+            android:layout_below="@+id/llayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:text="Total Hours" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#FB0C0C"
+                android:layout_gravity="center"
+                android:text="10" />
+
+        </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="Earned" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#FB0C0C"
+                    android:layout_gravity="center"
+                    android:text="$14k" />
+
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llayout3"
+            android:layout_below="@+id/llayout2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile" />
+
+                    <TextView
+                        android:id="@+id/personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:paddingStart="16dp"
+                        android:text="Personal"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="16dp"
+                        android:src="@drawable/checkmark" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llayout4"
+            android:layout_below="@+id/llayout3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:paddingStart="16dp"
+                        android:text="Document"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="16dp"
+                        android:src="@drawable/close" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llayout5"
+            android:layout_below="@+id/llayout4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:paddingStart="16dp"
+                        android:text="Checks and Test"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="16dp"
+                        android:src="@drawable/checkmark" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llayout6"
+            android:layout_below="@+id/llayout5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:paddingStart="16dp"
+                        android:text="Orientation"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="16dp"
+                        android:src="@drawable/checkmark" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llayout7"
+            android:layout_below="@+id/llayout6"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            tools:ignore="MissingConstraints">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:paddingStart="16dp"
+                        android:text="Taining"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="16dp"
+                        android:src="@drawable/checkmark" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

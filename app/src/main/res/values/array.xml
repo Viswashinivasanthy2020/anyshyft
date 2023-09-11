@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="department_list">
+        <item>FD36</item>
+        <item>FD37</item>
+
+    </string-array>
+    <string-array name="licencestate_list">
+        <item>california</item>
+        <item>Colorado</item>
+
+    </string-array>
+    <string-array name="gender_list">
+        <item>Male</item>
+        <item>Female</item>
+
+    </string-array>
+    <string-array name="shift_list">
+        <item>Day</item>
+        <item>Night</item>
+    </string-array>
+    <string-array name="university_list">
+        <item>Select</item>
+        <item>Master of Science in Nursing (MSN)</item>
+    </string-array>
+
+    <string-array name="state_list">
+        <item>Alabama</item>
+        <item> Alaska</item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>California</item>
+        <item>Colorado</item>
+        <item>Connecticut</item>
+        <item> Delaware</item>
+        <item>Florida</item>
+    </string-array>
+    <string-array name="city_list">
+        <item>Anchorage</item>
+        <item> Cordova</item>
+        <item>Fairbanks</item>
+        <item>Haines</item>
+        <item>Homer</item>
+        <item>Juneau</item>
+        <item>Ketchikan</item>
+        <item> Kodiak</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+
+</resources>

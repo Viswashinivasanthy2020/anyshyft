@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="demo.covaiMED.healthworker.HealthMeasurementView">
+
+    <item
+        android:id="@+id/skipmenu"
+        android:title="Skip" app:showAsAction="ifRoom|withText"
+        app:actionLayout="@layout/custom_menu" />
+
+</menu>
