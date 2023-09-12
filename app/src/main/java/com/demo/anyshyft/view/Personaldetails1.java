@@ -16,28 +16,51 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.demo.anyshyft.ApiClient;
+import com.demo.anyshyft.HttpPostRequestTask;
 import com.demo.anyshyft.R;
+import com.demo.anyshyft.api.ApiService;
+import com.demo.anyshyft.model.LicenceFormdata;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Personaldetails1 extends AppCompatActivity {
     private static final int REQUEST_GET_SINGLE_FILE = 1;
     private Uri filePath;
     ImageView img_userimage;
     Toolbar topbar;
+    List<String> licenseTypes = new ArrayList<>();
+    Spinner licensespinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personaldetails1);
-        img_userimage=(ImageView) findViewById(R.id.userimage);
+        img_userimage = (ImageView) findViewById(R.id.userimage);
+        licensespinner=findViewById(R.id.licencestate);
         topbar = findViewById(R.id.topAppBar);
         topbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,13 +68,20 @@ public class Personaldetails1 extends AppCompatActivity {
                 finish();
             }
         });
+        try {
+            postData_license();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
-    public void click_savenext(View v)
-    {
-        Intent in=new Intent(Personaldetails1.this,Personaldetails2.class);
+
+    public void click_savenext(View v) throws JSONException {
+        postData_SaveNext();
+        Intent in = new Intent(Personaldetails1.this, Personaldetails2.class);
         startActivity(in);
     }
+
     public void openimage(View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -59,6 +89,7 @@ public class Personaldetails1 extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GET_SINGLE_FILE);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -74,7 +105,7 @@ public class Personaldetails1 extends AppCompatActivity {
                     }
                     // Set the image in ImageView
 
-                    Log.d("filepath",filePath.toString());
+                    Log.d("filepath", filePath.toString());
                     img_userimage.setImageURI(filePath);
 
                 }
@@ -84,6 +115,7 @@ public class Personaldetails1 extends AppCompatActivity {
         }
 
     }
+
     public String getPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -95,68 +127,99 @@ public class Personaldetails1 extends AppCompatActivity {
         cursor.close();
         return res;
     }
-    private void postlicence_state() {
 
-        Thread thread = new Thread(() -> {
+    private void postData_license() throws JSONException {
+
+        String apiUrl = "https://jobpazi.in/anyshyft1//api/v1/nurse/get-licenseTypes";
+        Map<String, String> formData = new HashMap<>();
+        formData.put("api_key", "123");
+        HttpPostRequestTask httpPostRequestTask = new HttpPostRequestTask(formData);
+
+        String resultString = null;
+        try {
+            resultString = httpPostRequestTask.execute(apiUrl).get();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (resultString != null) {
+            // Use the resultString as needed
+            Log.d("Response", "Result: " + resultString);
             try {
-                URL url = new URL("https://jobpazi.in/anyshyft1//api/v1/nurse/get-licenseTypes");
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("api_key", "client_credentials");
-                jsonParam.put("vendorId", "1002");
-                jsonParam.put("client_id", "1002");
-                jsonParam.put("client_secret", "3D9350A8455D09218C3F5362D36A8329184282C55BED4B95FAA5D540534A2FCF021C96E15DF065EB5BC405E2B9E973905F6A251F52DB903D0AFFA1C9B5EEDB35");
-
-
-                Log.i("JSON", jsonParam.toString());
-
-                DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-                os.writeBytes(jsonParam.toString());
-                os.flush();
-                os.close();
-                Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-                Log.i("MSG", conn.getResponseMessage());
-                BufferedReader br = null;
-                if (100 <= conn.getResponseCode() && conn.getResponseCode() <= 399) {
-                    br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String response;
-                    String output;
-                    while ((output = br.readLine()) != null) {
-                        sb.append(output);
+                JSONObject jsonResponse = new JSONObject(resultString);
+                int status = jsonResponse.getInt("status");
+                if (status == 200) {
+                    JSONArray dataArray = jsonResponse.getJSONArray("data");
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        JSONObject dataObject = dataArray.getJSONObject(i);
+                        licenseTypes.add(dataObject.getString("title"));
+                        Log.d("888888",licenseTypes.toString());
                     }
-                    response = sb.toString();
-                    JSONObject jsonObject = new JSONObject(response);
-                    System.out.println(jsonObject);
-                    SharedPreferences.Editor myEdit = sharedPref.edit();
-                    access_token= jsonObject.getJSONObject("model").getString("access_token");
-                    //  myEdit.putString("access_token",access_token);
-                    // myEdit.apply();
-                    //   Log.d(">>>>>>>>", response);
-                    Log.d(">>>>>>>>", access_token);
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(Personaldetails1.this,android.R.layout.simple_spinner_item , licenseTypes);
+                    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                    licensespinner.setAdapter(spinnerArrayAdapter);
 
-                }
-                else {
-                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-//                    Toast.makeText(getApplicationContext(), "Internal Error"+ br.toString(), Toast.LENGTH_LONG).show();
-                }
+                } else {
 
-                conn.disconnect();
-            } catch (Exception e) {
+                    String message = jsonResponse.getString("message");
+                    Log.e("JSON Parsing", "Status not 200: " + message);
+                }
+            } catch (JSONException e) {
                 e.printStackTrace();
-
+                Log.e("JSON Parsing", "Error parsing JSON");
             }
-        });
 
-        thread.start();
+        } else {
+
+            Log.e("Response", "No response data");
+        }
+
+
     }
+    private void postData_SaveNext() throws JSONException {
 
+        String apiUrl = "https://jobpazi.in/anyshyft1/api/v1/nurse/step1";
+        Map<String, String> formData = new HashMap<>();
+        formData.put("api_key", "123");
+        formData.put("src_step", "step1");
+        formData.put("firstname", "test");
+        HttpPostRequestTask httpPostRequestTask = new HttpPostRequestTask(formData);
+
+        String resultString = null;
+        try {
+            resultString = httpPostRequestTask.execute(apiUrl).get();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (resultString != null) {
+            // Use the resultString as needed
+            Log.d("Response", "Result: " + resultString);
+            try {
+                JSONObject jsonResponse = new JSONObject(resultString);
+                int status = jsonResponse.getInt("status");
+                if (status == 200) {
+                    String responsemessage=jsonResponse.getString("message");
+                    Log.d("message",responsemessage);
+                    Toast.makeText(getApplicationContext(),responsemessage, Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    String message = jsonResponse.getString("message");
+                    Log.e("JSON Parsing", "Status not 200: " + message);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("JSON Parsing", "Error parsing JSON");
+            }
+
+        } else {
+
+            Log.e("Response", "No response data");
+        }
+
+
+    }
 }
