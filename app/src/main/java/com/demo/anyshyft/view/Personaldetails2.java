@@ -2,10 +2,15 @@ package com.demo.anyshyft.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +19,11 @@ import android.widget.Toast;
 
 import com.demo.anyshyft.HttpPostRequestTask;
 import com.demo.anyshyft.R;
+import com.demo.anyshyft.databinding.ActivityPersonaldetails1Binding;
+import com.demo.anyshyft.databinding.ActivityPersonaldetails2Binding;
+import com.demo.anyshyft.model.Personaldetails1DataModel;
+import com.demo.anyshyft.model.Personaldetails2DataModel;
+import com.demo.anyshyft.viewmodel.Personaldetails2ViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Personaldetails2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     Toolbar topbar;
@@ -32,11 +43,16 @@ public class Personaldetails2 extends AppCompatActivity implements AdapterView.O
     List<String> statenames = new ArrayList<>();
     List<String> cityname = new ArrayList<>();
     Spinner stateSpinner,citySpinner;
+    private Personaldetails2ViewModel personaldetails2ViewModel;
+    private ActivityPersonaldetails2Binding activityPersonaldetails2Binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personaldetails2);
+        activityPersonaldetails2Binding= DataBindingUtil.setContentView(Personaldetails2.this,R.layout.activity_personaldetails2);
+        personaldetails2ViewModel = androidx.lifecycle.ViewModelProviders.of(this).get(Personaldetails2ViewModel.class);
+        activityPersonaldetails2Binding.setLifecycleOwner(this);
+        activityPersonaldetails2Binding.setPersonal2(personaldetails2ViewModel);
         topbar = findViewById(R.id.topAppBar);
         stateSpinner=findViewById(R.id.state);
         citySpinner=findViewById(R.id.city);
@@ -74,6 +90,26 @@ public class Personaldetails2 extends AppCompatActivity implements AdapterView.O
             }
 
         });
+        personaldetails2ViewModel.getPersonal2DatamodelMutableLiveData().observe(this, new Observer<Personaldetails2DataModel>() {
+            @SuppressLint("WrongConstant")
+            @Override
+            public void onChanged(Personaldetails2DataModel dataModel) {
+            /*    if(TextUtils.isEmpty(Objects.requireNonNull(dataModel).getAddress()))
+                {
+                    activityPersonaldetails2Binding.staddress.setError("This field is required");
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Profile Saved Successfully", Toast.LENGTH_SHORT | Gravity.CENTER).show();
+                    Intent in = new Intent(Personaldetails2.this, Personalinformation.class);
+                    startActivity(in);
+                }
+
+             */
+                Toast.makeText(getApplicationContext(), "Profile Saved Successfully", Toast.LENGTH_SHORT | Gravity.CENTER).show();
+                Intent in = new Intent(Personaldetails2.this, Personalinformation.class);
+                startActivity(in);
+            }
+        });
     }
 
     @Override
@@ -85,11 +121,7 @@ public class Personaldetails2 extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    public void onClick_save(View v) throws JSONException {
-        Intent in=new Intent(Personaldetails2.this,Personalinformation.class);
-        startActivity(in);
-        postData_SaveNext();
-    }
+
     private void postData_statedetails(String url,String countrycode) throws JSONException {
 
         String apiUrl = url;
@@ -191,49 +223,5 @@ public class Personaldetails2 extends AppCompatActivity implements AdapterView.O
 
 
     }
-    private void postData_SaveNext() throws JSONException {
 
-        String apiUrl = "https://jobpazi.in/anyshyft1/api/v1/nurse/step2";
-        Map<String, String> formData = new HashMap<>();
-        formData.put("api_key", "123");
-        formData.put("src_step", "step2");
-        formData.put("firstname", "test");
-        HttpPostRequestTask httpPostRequestTask = new HttpPostRequestTask(formData);
-
-        String resultString = null;
-        try {
-            resultString = httpPostRequestTask.execute(apiUrl).get();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (resultString != null) {
-            // Use the resultString as needed
-            Log.d("Response", "Result: " + resultString);
-            try {
-                JSONObject jsonResponse = new JSONObject(resultString);
-                int status = jsonResponse.getInt("status");
-                if (status == 200) {
-                    String responsemessage=jsonResponse.getString("message");
-                    Log.d("message",responsemessage);
-                    Toast.makeText(getApplicationContext(),responsemessage, Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    String message = jsonResponse.getString("message");
-                    Log.e("JSON Parsing", "Status not 200: " + message);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e("JSON Parsing", "Error parsing JSON");
-            }
-
-        } else {
-
-            Log.e("Response", "No response data");
-        }
-
-
-    }
 }

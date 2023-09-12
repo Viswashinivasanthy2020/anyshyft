@@ -2,50 +2,41 @@ package com.demo.anyshyft.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.demo.anyshyft.ApiClient;
 import com.demo.anyshyft.HttpPostRequestTask;
 import com.demo.anyshyft.R;
-import com.demo.anyshyft.api.ApiService;
-import com.demo.anyshyft.model.LicenceFormdata;
+import com.demo.anyshyft.databinding.ActivityPersonaldetails1Binding;
+import com.demo.anyshyft.model.Personaldetails1DataModel;
+import com.demo.anyshyft.viewmodel.Personaldetails1ViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.Objects;
 
 public class Personaldetails1 extends AppCompatActivity {
     private static final int REQUEST_GET_SINGLE_FILE = 1;
@@ -54,12 +45,23 @@ public class Personaldetails1 extends AppCompatActivity {
     Toolbar topbar;
     List<String> licenseTypes = new ArrayList<>();
     Spinner licensespinner;
+    EditText txtname,txtmail,txt_phoneno,txt_pwd;
+    private Personaldetails1ViewModel personaldetails1ViewModel;
+    private ActivityPersonaldetails1Binding activityPersonaldetails1Binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personaldetails1);
+        activityPersonaldetails1Binding= DataBindingUtil.setContentView(Personaldetails1.this,R.layout.activity_personaldetails1);
+        personaldetails1ViewModel = androidx.lifecycle.ViewModelProviders.of(this).get(Personaldetails1ViewModel.class);
+        activityPersonaldetails1Binding.setLifecycleOwner(this);
+        activityPersonaldetails1Binding.setPersonal1(personaldetails1ViewModel);
         img_userimage = (ImageView) findViewById(R.id.userimage);
+        txtname=findViewById(R.id.name);
+        txtmail=findViewById(R.id.mail);
+        txt_phoneno=findViewById(R.id.phoneno);
+        txt_pwd=findViewById(R.id.edit_password);
+
         licensespinner=findViewById(R.id.licencestate);
         topbar = findViewById(R.id.topAppBar);
         topbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -73,14 +75,36 @@ public class Personaldetails1 extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        personaldetails1ViewModel.getPersonal1DatamodelMutableLiveData().observe(this, new Observer<Personaldetails1DataModel>() {
+            @SuppressLint("WrongConstant")
+            @Override
+            public void onChanged(Personaldetails1DataModel dataModel) {
+                if(TextUtils.isEmpty(Objects.requireNonNull(txtname.getText())))
+                {
+                    activityPersonaldetails1Binding.name.setError("name is required");
+                }
+                else  if(TextUtils.isEmpty(Objects.requireNonNull(txtmail.getText())))
+                {
+                    activityPersonaldetails1Binding.mail.setError("mail is required");
+                }
+                else  if(TextUtils.isEmpty(Objects.requireNonNull(txt_phoneno.getText())))
+                {
+                    activityPersonaldetails1Binding.phoneno.setError("Phone number is required");
+                }
+                else  if(TextUtils.isEmpty(Objects.requireNonNull(txt_pwd.getText())))
+                {
+                    activityPersonaldetails1Binding.editPassword.setError("Password is required");
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Profile Saved Successfully", Toast.LENGTH_SHORT | Gravity.CENTER).show();
+                    Intent in = new Intent(Personaldetails1.this, Personaldetails2.class);
+                    startActivity(in);
+                }
+            }
+        });
 
     }
 
-    public void click_savenext(View v) throws JSONException {
-        postData_SaveNext();
-        Intent in = new Intent(Personaldetails1.this, Personaldetails2.class);
-        startActivity(in);
-    }
 
     public void openimage(View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -177,49 +201,5 @@ public class Personaldetails1 extends AppCompatActivity {
 
 
     }
-    private void postData_SaveNext() throws JSONException {
 
-        String apiUrl = "https://jobpazi.in/anyshyft1/api/v1/nurse/step1";
-        Map<String, String> formData = new HashMap<>();
-        formData.put("api_key", "123");
-        formData.put("src_step", "step1");
-        formData.put("firstname", "test");
-        HttpPostRequestTask httpPostRequestTask = new HttpPostRequestTask(formData);
-
-        String resultString = null;
-        try {
-            resultString = httpPostRequestTask.execute(apiUrl).get();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (resultString != null) {
-            // Use the resultString as needed
-            Log.d("Response", "Result: " + resultString);
-            try {
-                JSONObject jsonResponse = new JSONObject(resultString);
-                int status = jsonResponse.getInt("status");
-                if (status == 200) {
-                    String responsemessage=jsonResponse.getString("message");
-                    Log.d("message",responsemessage);
-                    Toast.makeText(getApplicationContext(),responsemessage, Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    String message = jsonResponse.getString("message");
-                    Log.e("JSON Parsing", "Status not 200: " + message);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e("JSON Parsing", "Error parsing JSON");
-            }
-
-        } else {
-
-            Log.e("Response", "No response data");
-        }
-
-
-    }
 }
